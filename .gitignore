@@ -1,0 +1,10 @@
+.idea/
+.ipynb_checkpoints/
+BoroughBoundaries/
+node_modules/
+venv/
+.env
+/Borough Boundaries/
+test/
+nyc_geo_2.geojson
+package-lock.json
