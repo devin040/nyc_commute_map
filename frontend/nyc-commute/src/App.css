@@ -43,11 +43,43 @@
   right: 400px;
   left: 400px;
   bottom: 200px;
-  }
+}
 
 #leafletmap {
   position: relative;
   height: 800px;
   width: 1200px;
-  top: 200px;
+  /* top: 200px; */
+  background-color: #e9eaef;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+#paper {
+  margin: auto;
+  display: "flex";
+  flex-direction: "column";
+  align-items: "center";
+  width: 300px;
+  height: 200px;
+}
+
+#form {
+  width: "100%";
+  margin-top: 1px;
+  margin-bottom: 20px;
+}
+
+#submit {
+  margin: 3px, 0px, 2px;
+  margin-top: 10px;
+}
+#container {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+#coor {
+  padding: 10px;
+  margin-left: 10px;
 }
