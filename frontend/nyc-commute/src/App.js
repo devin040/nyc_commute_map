@@ -69,13 +69,16 @@ function style(feature){
 
 
 // async function getCommute(box, lat, long){
-async function getCommute(box){
+// async function getCommute(box){
+  async function getCommute(box, latlong){
+// function getCommute(box, latlong) {
 
   return axios({
     method: 'get',
+    url: `https://transit.router.hereapi.com/v8/routes?apiKey=${API_KEY}&origin=${box.properties.centroids_y},${box.properties.centroids_x}&destination=${latlong}&units=imperial&return=travelSummary`,
     // url: `https://transit.router.hereapi.com/v8/routes?apiKey=${API_KEY}&origin=${box.properties.centroids_y},${box.properties.centroids_x}&destination=${lat},${long}&units=imperial&return=travelSummary`,
     // url: `https://transit.router.hereapi.com/v8/routes?apiKey=${API_KEY}&origin=${box.properties.centroids_y},${box.properties.centroids_x}&destination=${this.state.d_lat},${this.state.d_lng}&units=imperial&return=travelSummary`,
-    url: `https://transit.router.hereapi.com/v8/routes?apiKey=${API_KEY}&origin=${box.properties.centroids_y},${box.properties.centroids_x}&destination=40.754363,-73.985082&units=imperial&return=travelSummary`,
+    // url: `https://transit.router.hereapi.com/v8/routes?apiKey=${API_KEY}&origin=${box.properties.centroids_y},${box.properties.centroids_x}&destination=40.754363,-73.985082&units=imperial&return=travelSummary`,
     data: {}
   }).then(res => res)
 }
@@ -94,16 +97,17 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     
   }
+  map_object = '';
 
-  async componentDidMount() {
+  // async componentDidMount() {
 
-    // componentDidMount() {
+    componentDidMount() {
 
   // async displayMap(lat, long){
     
   // async displayMap(){
 
-    let map = L.map("leafletmap").setView([40.75, -73.9], 10 );
+    this.map_object = L.map("leafletmap").setView([40.75, -73.9], 10 );
     
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -112,22 +116,26 @@ class App extends React.Component {
     tileSize: 512,
     zoomOffset: -1,
     accessToken: MAPBOX_TOKEN
-    }).addTo(map);
-
+    }).addTo(this.map_object);
+    // this.map_object = map;
     // this.setState({
     //   mapob: map
     // })
 
-  // }
+  }
 
   // async displayCommute(lat,long){
+  async displayCommute(latlong){
 
     console.log(colors)
 
     for (var i = 0; i < brooklyn['features'].length-260; i++){
       var box = brooklyn['features'][i]
+      const response = await getCommute(box,latlong);
+      // const response = getCommute(box,latlong);
+
       // const response = await getCommute(box,lat, long);
-      const response = await getCommute(box);
+      // const response = await getCommute(box);
 
 
       console.log(response);
@@ -148,19 +156,23 @@ class App extends React.Component {
           box['properties'].commuteTime = -1
         }
         console.log(box)
-        var geoJsonLayer = L.geoJson(box, {style: style}).addTo(map);
-      
+        // var geoJsonLayer = L.geoJson(box, {style: style}).addTo(map);
+        var geoJsonLayer = L.geoJson(box, {style: style}).addTo(this.map_object);
+
 
     }
 
     }
 
     handleSubmit(event) {
-      const lat = this.state.d_lat
-      const long = this.state.d_lng
-      console.log('Lat '+ lat);
-      console.log('Long'+ long);
-      this.displayMap(lat, long)
+      // const lat = this.state.d_lat
+      // const long = this.state.d_lng
+      // console.log('Lat '+ lat);
+      // console.log('Long'+ long);
+      // this.displayMap(lat, long)
+
+      const latlong = this.state.d_lat
+      this.displayCommute(latlong);
       // this.displayCommute(lat, long)
 
     }
@@ -180,18 +192,18 @@ class App extends React.Component {
         <form className={useStyles.form} id='form' onSubmit={this.handleSubmit} noValidate>
         <TextField
           id="coor"
-          label="Latitude"
+          label="Latitude, Longitude"
           value={this.state.d_lat} 
 
           onChange={(e) => this.setState({ d_lat: e.target.value})}
         />
-        <TextField
+        {/* <TextField
           id="coor"
           label="Longitude"
           value={this.state.d_lng} 
 
           onChange={(e) => this.setState({d_lng: e.target.value})}
-        />
+        /> */}
 
           <Button
             type="submit"
