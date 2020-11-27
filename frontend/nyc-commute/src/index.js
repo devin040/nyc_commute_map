@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Main from './Main';
 import reportWebVitals from './reportWebVitals';
 import mapboxgl from 'mapbox-gl'
 
@@ -9,6 +10,11 @@ mapboxgl.accessToken = "pk.eyJ1IjoidGhlbGFtaWEiLCJhIjoiY2toMWpwcnh6MHB6dDJxcnN3c
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* <Main 
+    handleChange={this.handleChange}
+    post={this.sate.post}
+    handleSubmit={this.handleSubmit}
+    /> */}
     <App />
   </React.StrictMode>,
   document.getElementById('root')
