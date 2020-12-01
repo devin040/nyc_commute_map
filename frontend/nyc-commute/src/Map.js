@@ -33,6 +33,7 @@ function style(feature){
 
 
   async function getCommute(box, latlong){
+  // function getCommute(box, latlong){
 
 
   return axios({
@@ -62,9 +63,11 @@ class MapContainer extends React.Component {
       map_object = '';
       latlong = '';
     
-      async componentDidMount() {
+      // componentDidMount() {
+      async componentDidMount(){
 
         const latlong = this.props.latlong
+        console.log(latlong)
         const map = L.map("leafletmap").setView([40.75, -73.9], 10 );
         
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -81,6 +84,7 @@ class MapContainer extends React.Component {
         for (var i = 0; i < brooklyn['features'].length-260; i++){
           var box = brooklyn['features'][i]
           const response = await getCommute(box,latlong);
+          // const response = getCommute(box,latlong);
     
           console.log(response);
             if (response.status === 200){

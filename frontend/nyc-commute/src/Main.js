@@ -57,15 +57,17 @@ export default function Main(){
   const [showGetAPI, setShowGetAPI] = useState("false");  
   const [latlong, setLatlong] = useState();
   
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setShowGetAPI("true");
   };
   
   const handleChange = (e) => {
     setLatlong(e.target.value);
   };
-
+  
   return (
+      <React.Fragment>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -110,7 +112,9 @@ export default function Main(){
       {/* <Box mt={8}>
         <Copyright />
       </Box> */}
-    <div>
+
+    </Container>
+        <div>
         {showGetAPI == "true" && (
             <div>
             <MapContainer
@@ -119,7 +123,7 @@ export default function Main(){
             </div>
         )}
     </div>
-    </Container>
+    </React.Fragment>
 
   );
 }

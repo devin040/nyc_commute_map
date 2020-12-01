@@ -16,6 +16,7 @@ ReactDOM.render(
     handleSubmit={this.handleSubmit}
     /> */}
     <App />
+
   </React.StrictMode>,
   document.getElementById('root')
 );
