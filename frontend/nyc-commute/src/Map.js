@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import axios from 'axios';
 import { saveSync } from 'save-file'
 
-const nyc = require('./geo/nyc_geo_3.json');
+const nyc = require('./geo/bryantpark_result.json');
 
 const API_KEY = process.env.REACT_APP_HERE_API_KEY;
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
@@ -13,7 +13,7 @@ let colormap = require('colormap');
 
 
 
-let colors = colormap({colormap: 'hot', nshades: 240, format:'hex', alpha: 1})
+let colors = colormap({colormap: 'viridis', nshades: 240, format:'hex', alpha: 1})
 
 function determineColor(commuteTime){
   if (commuteTime == -1){
@@ -28,9 +28,10 @@ function determineColor(commuteTime){
 function style(feature){
   return {
     fillColor: determineColor(feature.properties.commuteTime),
-    weight: .1, 
+    color: determineColor(feature.properties.commuteTime),
+    weight: 0, 
     opacity: 0,
-    fillOpacity: .6
+    fillOpacity: .8
   }
 }
 
@@ -84,33 +85,32 @@ class MapContainer extends React.Component {
 
         console.log(colors)
     
-        for (var i = 0; i < nyc['features'].length-260; i++){
+        for (var i = 0; i < nyc['features'].length; i++){
           var box = nyc['features'][i]
-          const response = await getCommute(box,latlong);
+          // const response = await getCommute(box,latlong);
     
-          console.log(response);
-            if (response.status === 200){
-              try {
-                let legs = response.data.routes[0].sections;
-                let duration = 0;
-                for (var leg = 0; leg < legs.length; leg++){
-                  duration += legs[leg].travelSummary.duration;
-                }
-                box.properties.commuteTime = duration;
-              } catch(error){
-                box['properties'].commuteTime = -1;
-                console.log("Caught an error");
-              }
+          // console.log(response);
+          //   if (response.status === 200){
+          //     try {
+          //       let legs = response.data.routes[0].sections;
+          //       let duration = 0;
+          //       for (var leg = 0; leg < legs.length; leg++){
+          //         duration += legs[leg].travelSummary.duration;
+          //       }
+          //       box.properties.commuteTime = duration;
+          //     } catch(error){
+          //       box['properties'].commuteTime = -1;
+          //       console.log("Caught an error");
+          //     }
                 
-            } else {
-              box['properties'].commuteTime = -1
-            }
-            nyc['features'][i] = box;
+          //   } else {
+          //     box['properties'].commuteTime = -1
+          //   }
+          //   nyc['features'][i] = box;
           var geoJsonLayer = L.geoJson(box, {style: style}).addTo(map);
-            // var geoJsonLayer = L.geoJson(box, {style: style}).addTo(this.map_object);
         }
 
-        saveSync(JSON.stringify(nyc), 'mapresult.json')
+        //saveSync(JSON.stringify(nyc), 'mapresult.json')
       }
     
       
