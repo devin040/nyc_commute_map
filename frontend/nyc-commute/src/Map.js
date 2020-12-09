@@ -3,7 +3,10 @@ import React from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import axios from 'axios';
-const brooklyn = require('./geo/bk_geo.json');
+import { saveSync } from 'save-file'
+
+const nyc = require('./geo/nyc_geo_3.json');
+
 const API_KEY = process.env.REACT_APP_HERE_API_KEY;
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 let colormap = require('colormap');
@@ -26,7 +29,7 @@ function style(feature){
   return {
     fillColor: determineColor(feature.properties.commuteTime),
     weight: .1, 
-    opacity: 1,
+    opacity: 0,
     fillOpacity: .6
   }
 }
@@ -81,10 +84,9 @@ class MapContainer extends React.Component {
 
         console.log(colors)
     
-        for (var i = 0; i < brooklyn['features'].length-260; i++){
-          var box = brooklyn['features'][i]
+        for (var i = 0; i < nyc['features'].length-260; i++){
+          var box = nyc['features'][i]
           const response = await getCommute(box,latlong);
-          // const response = getCommute(box,latlong);
     
           console.log(response);
             if (response.status === 200){
@@ -103,14 +105,13 @@ class MapContainer extends React.Component {
             } else {
               box['properties'].commuteTime = -1
             }
-            console.log(box)
-            var geoJsonLayer = L.geoJson(box, {style: style}).addTo(map);
+            nyc['features'][i] = box;
+          var geoJsonLayer = L.geoJson(box, {style: style}).addTo(map);
             // var geoJsonLayer = L.geoJson(box, {style: style}).addTo(this.map_object);
-    
-    
         }
-    
-        }
+
+        saveSync(JSON.stringify(nyc), 'mapresult.json')
+      }
     
       
       
