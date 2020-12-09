@@ -86,4 +86,4 @@ nyc_grid = GeoDataFrame({'centroids_x': centroids_X, 'centroids_y': centroids_Y,
 # nyc_grid.drop(idxs_to_del)
 nyc_grid.plot()
 plt.show()
-nyc_grid.to_file("nyc_geo_3.geojson", driver='GeoJSON')
+nyc_grid.to_file("nyc_geo_4.json", driver='GeoJSON')
