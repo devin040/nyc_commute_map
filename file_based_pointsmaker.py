@@ -12,6 +12,11 @@ from datetime import datetime
 plt.rcParams["figure.figsize"] = [8,6]
 import pickle
 
+
+##
+# Thank you to StackOverflow user Istbl from whom we adapted this algorithm.
+# https://stackoverflow.com/questions/55199436/generate-grid-of-latitude-longitude-coordinates-that-fall-within-polygon
+#
 # Get the shape-file for NYC
 boros = GeoDataFrame.from_file('./Borough Boundaries/geo_export_e66b8353-e3f3-49c0-9a5e-4622cdc09c91.shp')
 boros = boros.set_index('boro_code')
