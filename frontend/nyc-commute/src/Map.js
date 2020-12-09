@@ -14,7 +14,7 @@ let colormap = require('colormap');
 
 
 
-let colors = colormap({colormap: 'viridis', nshades: 240, format:'hex', alpha: 1})
+let colors = colormap({colormap: 'magma', nshades: 240, format:'hex', alpha: 1})
 
 function determineColor(commuteTime){
   if (commuteTime == -1){
@@ -121,7 +121,7 @@ class MapContainer extends React.Component {
       render(){
         return (
           <div>
-            <h4>{this.props.latlong}</h4>
+            {/* <h4>{this.props.latlong}</h4> */}
             <div id="leafletmap"></div> 
           </div>
 

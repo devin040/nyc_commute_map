@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MapContainer from './Map';
-import scale from './img/scale.png'
+import scale from './img/magma_scale.png'
 
 function Copyright() {
   return (
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: custom_theme.palette.primary.main,
+    backgroundColor: custom_theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -55,10 +55,10 @@ const useStyles = makeStyles((theme) => ({
 const custom_theme  = createMuiTheme({
   palette: {
         primary: {
-          main: '#22a685',
+          main: '#0c0c0c',
         },
         secondary: {
-          main: '#450d55',
+          main: '#42255c',
         }, 
   },
 });
@@ -116,16 +116,13 @@ export default function Main(){
             id='submit'
             classes={{label: useStyles.submit}}
             onClick={handleSubmit}
+            style ={{backgroundColor: custom_theme.palette.primary.main }}
             // onClick={()=> {this.handleSubmit()}}
           >
             Display Commute Map
           </Button>
         </form>
       </div>
-      {/* <Box>
-      <img src={scale}/>
-      </Box> */}
-
 
     </Container>
     <Paper className={classes.paper} > 
@@ -134,6 +131,10 @@ export default function Main(){
         {/* <rect width="300" height="100" className={useStyles.scale}/> */}
         {showGetAPI == "true" && (
             <div>
+                      <Box>
+        <Typography > Colormap scale</Typography>
+      <img src={scale}/>
+      </Box>
             <MapContainer
                 latlong={latlong}
             />
