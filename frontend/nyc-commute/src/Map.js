@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import axios from 'axios';
 import { saveSync } from 'save-file'
 
+
 const nyc = require('./geo/bryantpark_result.json');
 
 const API_KEY = process.env.REACT_APP_HERE_API_KEY;
@@ -77,11 +78,12 @@ class MapContainer extends React.Component {
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
-        id: 'mapbox/streets-v11',
+        id: 'mapbox/dark-v10',
         tileSize: 512,
         zoomOffset: -1,
         accessToken: MAPBOX_TOKEN
         }).addTo(map);
+       
 
         console.log(colors)
     
@@ -110,7 +112,8 @@ class MapContainer extends React.Component {
           var geoJsonLayer = L.geoJson(box, {style: style}).addTo(map);
         }
 
-        //saveSync(JSON.stringify(nyc), 'mapresult.json')
+
+        // saveSync(JSON.stringify(nyc), 'mapresult.json')
       }
     
       
@@ -119,7 +122,7 @@ class MapContainer extends React.Component {
       render(){
         return (
           <div>
-            <h3>{this.props.latlong}</h3>
+            <h4>{this.props.latlong}</h4>
             <div id="leafletmap"></div> 
           </div>
 

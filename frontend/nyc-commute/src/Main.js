@@ -7,12 +7,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import ExploreIcon from '@material-ui/icons/Explore';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MapContainer from './Map';
+import scale from './img/scale.png'
 
 function Copyright() {
   return (
@@ -27,8 +30,6 @@ function Copyright() {
   );
 }
 
-
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: custom_theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -46,10 +47,21 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: custom_theme.palette.primary.main,
   },
 }));
 
 
+const custom_theme  = createMuiTheme({
+  palette: {
+        primary: {
+          main: '#22a685',
+        },
+        secondary: {
+          main: '#450d55',
+        }, 
+  },
+});
 
 
 export default function Main(){
@@ -74,8 +86,8 @@ export default function Main(){
         <Avatar className={classes.avatar}>
           <ExploreIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Explore NYC Commute Heatmap
+        <Typography component="h5" variant="h5">
+          Explore NYC Public Transit Commute Times
         </Typography>
         <form className={useStyles.form} id='form' noValidate>
         <TextField
@@ -102,6 +114,7 @@ export default function Main(){
             color="primary"
             className={useStyles.submit}
             id='submit'
+            classes={{label: useStyles.submit}}
             onClick={handleSubmit}
             // onClick={()=> {this.handleSubmit()}}
           >
@@ -109,12 +122,16 @@ export default function Main(){
           </Button>
         </form>
       </div>
-      {/* <Box mt={8}>
-        <Copyright />
+      {/* <Box>
+      <img src={scale}/>
       </Box> */}
 
+
     </Container>
+    <Paper className={classes.paper} > 
         <div>
+        
+        {/* <rect width="300" height="100" className={useStyles.scale}/> */}
         {showGetAPI == "true" && (
             <div>
             <MapContainer
@@ -123,6 +140,7 @@ export default function Main(){
             </div>
         )}
     </div>
+    </Paper>
     </React.Fragment>
 
   );
