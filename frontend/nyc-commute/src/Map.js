@@ -119,7 +119,7 @@ class MapContainer extends React.Component {
       render(){
         return (
           <div>
-            <h3>{this.props.latlong}</h3>
+            <h4>{this.props.latlong}</h4>
             <div id="leafletmap"></div> 
           </div>
 
