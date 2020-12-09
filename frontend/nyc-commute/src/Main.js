@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MapContainer from './Map';
+import scale from './img/scale.png'
 
 function Copyright() {
   return (
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: custom_theme.palette.secondary.main,
+    backgroundColor: custom_theme.palette.primary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -54,10 +55,10 @@ const useStyles = makeStyles((theme) => ({
 const custom_theme  = createMuiTheme({
   palette: {
         primary: {
-          main: '#311b92',
+          main: '#22a685',
         },
         secondary: {
-          main: '#ffca28',
+          main: '#450d55',
         }, 
   },
 });
@@ -113,6 +114,7 @@ export default function Main(){
             color="primary"
             className={useStyles.submit}
             id='submit'
+            classes={{label: useStyles.submit}}
             onClick={handleSubmit}
             // onClick={()=> {this.handleSubmit()}}
           >
@@ -120,13 +122,15 @@ export default function Main(){
           </Button>
         </form>
       </div>
-      {/* <Box mt={8}>
-        <Copyright />
+      {/* <Box>
+      <img src={scale}/>
       </Box> */}
+
 
     </Container>
     <Paper className={classes.paper} > 
         <div>
+        
         {/* <rect width="300" height="100" className={useStyles.scale}/> */}
         {showGetAPI == "true" && (
             <div>

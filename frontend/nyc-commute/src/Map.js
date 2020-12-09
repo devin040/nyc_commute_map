@@ -5,7 +5,8 @@ import 'leaflet/dist/leaflet.css'
 import axios from 'axios';
 import { saveSync } from 'save-file'
 
-const nyc = require('./geo/nyc_geo_3.json');
+// const nyc = require('./geo/nyc_geo_3.json');
+const nyc = require('./geo/bryantpark_result.json');
 
 const API_KEY = process.env.REACT_APP_HERE_API_KEY;
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
@@ -13,7 +14,7 @@ let colormap = require('colormap');
 
 
 
-let colors = colormap({colormap: 'hot', nshades: 240, format:'hex', alpha: 1})
+let colors = colormap({colormap: 'viridis', nshades: 240, format:'hex', alpha: 1})
 
 function determineColor(commuteTime){
   if (commuteTime == -1){
@@ -76,11 +77,12 @@ class MapContainer extends React.Component {
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
-        id: 'mapbox/streets-v11',
+        id: 'mapbox/light-v10',
         tileSize: 512,
         zoomOffset: -1,
         accessToken: MAPBOX_TOKEN
         }).addTo(map);
+       
 
         console.log(colors)
     
